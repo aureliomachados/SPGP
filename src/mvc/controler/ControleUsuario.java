@@ -3,7 +3,6 @@ package mvc.controler;
 
 import java.io.IOException;
 
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -138,5 +137,14 @@ public class ControleUsuario extends HttpServlet {
 				direcionador.forward(request,response);
 				
 		}
-	}
+		 if (acao.equals("emitirRelatorioUs")){
+				
+			 UsuarioDAO usuarioDAO = new UsuarioDAO();
+					
+				request.getSession(true).setAttribute("relatorioUs", usuarioDAO.listarUsuario());
+								
+				RequestDispatcher direcionador = request.getRequestDispatcher("relatorioUsuario.jsp");
+				direcionador.forward(request,response);
+				}
+		}
 }

@@ -14,17 +14,12 @@
 <BR><BR>
 <ul class="nav nav-list">
 <li><a href="inserirDocumento.jsp"> INCLUIR </a></li>
-
-
-
-
-<li><a href="controleUsuario?acao=listar"> CONSULTAR  </a></li>
-<li><a href="alterarUsuario.jsp"> ALTERAR </a> <BR></li>
+<li><a href="controleDocumento?acao=listarDoc"> CONSULTAR  </a></li>
 </ul>
 
 <BR>
 <BR>
-<input name="Home" type="button"  onClick="location. href= 'homeAdm.jsp'" value="Home">
+<input name="Home" type="button"  onClick="location. href= 'homeProtocolista.jsp'" value="Home">
 
 </body>
 </html>

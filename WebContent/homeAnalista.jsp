@@ -12,8 +12,7 @@
 <a>MENU</a>  
 <BR><BR>
 <ul class="nav nav-list">
-<li><a href="manterDocumento.jsp"> DOCUMENTO </a></li>
-<li><a href="controleDocumento?acao=listar">LISTAR  </a> <BR></li>
+<li><a href="controleDocumento?acao=listarDocumento">DOCUMENTOS </a> <BR></li>
 </ul>
 </body>
 </html>

@@ -14,6 +14,7 @@ import mvc.beans.Documento;
 
 
 
+
 /**
  * Servlet implementation class ControleDocumento
  */
@@ -37,7 +38,7 @@ public class ControleDocumento extends HttpServlet {
 	
 		
 		if (acao.equals("inserirDocumento")){
-			
+			//Protocolista
 			
 			String nomeInteressado = request.getParameter("nome");
 			String cpf_cnpj = request.getParameter("cpf_cnpj");
@@ -46,10 +47,9 @@ public class ControleDocumento extends HttpServlet {
 			String assunto = request.getParameter("assunto");
 			String dataEntrada = request.getParameter("dataEntrada");
 			String tipo = request.getParameter("tipo");
-			String status = request.getParameter("status");
 			int analista = Integer.parseInt(request.getParameter("analista"));
 			
-			Documento documento = new Documento( nomeInteressado, cpf_cnpj, numDoc, dataDoc, assunto,dataEntrada, tipo, status, analista);
+			Documento documento = new Documento( nomeInteressado, cpf_cnpj, numDoc, dataDoc, assunto,dataEntrada, tipo, analista);
 					
 			DocumentoDAO.inserir(documento);
 		
@@ -58,55 +58,83 @@ public class ControleDocumento extends HttpServlet {
 						
 		} 
 		else if(acao.equals("alterarDocumento")){
-			
-			int numProtolo = Integer.parseInt(request.getParameter("numProtolo"));
+			// Protocolista e Analista
+			int numProtocolo = Integer.parseInt(request.getParameter("numProtocolo"));
 			String nomeInteressado = request.getParameter("nomeInteressado");
 			String cpf_cnpj = request.getParameter("cpf_cnpj");
 			int numDoc = Integer.parseInt(request.getParameter("numDoc"));
 			String dataDoc = request.getParameter("dataDoc");
 			String assunto= request.getParameter("assunto");
-			String dataEntrada= request.getParameter("dataEntrada");
-			String tipo= request.getParameter("tipo= request");
-			String status= request.getParameter("tatus");
+			String tipo= request.getParameter("tipo");
+			String status= request.getParameter("status");
 			int analista= Integer.parseInt(request.getParameter("analista"));
 					
 						
 			DocumentoDAO documentoDAO = new DocumentoDAO();
 			
-			Documento documento = new Documento(numProtolo , nomeInteressado, cpf_cnpj, numDoc, dataDoc, assunto, dataEntrada, tipo, status, analista);
+			Documento documento = new Documento(numProtocolo , nomeInteressado, cpf_cnpj, numDoc, dataDoc, assunto, tipo, status, analista);
 			
 			documentoDAO.alterar(documento);
 			
-			RequestDispatcher direcionador = request.getRequestDispatcher("manterUsuario.jsp");
+			RequestDispatcher direcionador = request.getRequestDispatcher("manterDocumento.jsp");
 			direcionador.forward(request,response);
 
 		}
 		else if (acao.equals("consultarDocumento")){
 			
-			int numProtolo = Integer.parseInt(request.getParameter("numProtolo"));
+			int numProtocolo = Integer.parseInt(request.getParameter("numProtocolo"));
 			
 			DocumentoDAO documentoDAO = new DocumentoDAO();
 		
-			Documento documento = documentoDAO.consultar(numProtolo);							
+			Documento documento = documentoDAO.consultar(numProtocolo);							
 			request.setAttribute("doc", documento);
 					
-			RequestDispatcher direcionador = request.getRequestDispatcher("usuarioConsulta.jsp");
+			RequestDispatcher direcionador = request.getRequestDispatcher("processoConsulta.jsp");
 			direcionador.forward(request,response);
 			
-	}
-		else if (acao.equals("encerrarProcesso")){
+		}
+		else if (acao.equals("consultaDocmto")){
+			//Analista
+			int numProtocolo = Integer.parseInt(request.getParameter("numProtocolo"));
 			
-			int numProtolo = Integer.parseInt(request.getParameter("numProtolo"));
-			String status= request.getParameter("tatus");
-	
 			DocumentoDAO documentoDAO = new DocumentoDAO();
+		
+			Documento documento = documentoDAO.consultar(numProtocolo);							
+			request.setAttribute("docmto", documento);
+					
+			RequestDispatcher direcionador = request.getRequestDispatcher("processoConsult.jsp");
+			direcionador.forward(request,response);
 			
-			documentoDAO.encerrarProcesso(numProtolo,status);
-	
-			RequestDispatcher direcionador = request.getRequestDispatcher("manterDepartamento.jsp");
+		}
+		else if (acao.equals("consltDocumento")){
+			//Protocolista 
+			int numProtocolo = Integer.parseInt(request.getParameter("numProtocolo"));
+			
+			DocumentoDAO documentoDAO = new DocumentoDAO();
+		
+			Documento documento = documentoDAO.consultar(numProtocolo);							
+			request.setAttribute("doc", documento);
+					
+			RequestDispatcher direcionador = request.getRequestDispatcher("processoConsulta.jsp");
+			direcionador.forward(request,response);
+			
+		}
+		else if (acao.equals("inserirProvidenc")){
+			
+			int numProtocolo = Integer.parseInt(request.getParameter("numProtocolo"));
+			String providencia = request.getParameter("providencia");
+			
+			DocumentoDAO documentoDAO = new DocumentoDAO();
+			Documento documento= new Documento(numProtocolo,providencia);
+					
+			documentoDAO.inserirProvidencia(documento); 
+			Documento doc = documentoDAO.consultar(numProtocolo);
+			request.setAttribute("procDetalhado", doc);
+			
+			RequestDispatcher direcionador = request.getRequestDispatcher("providencia.jsp");
 			direcionador.forward(request,response);
 		}
-}
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -115,14 +143,141 @@ public class ControleDocumento extends HttpServlet {
 		String acao = request.getParameter("acao");
 		
 		if (acao.equals("listarDoc")){
-				
+				//Protocolista
 			DocumentoDAO documentoDAO = new DocumentoDAO();
 				
 			request.getSession(true).setAttribute("listaDoc", documentoDAO.listarDoc());
 							
-			RequestDispatcher direcionador = request.getRequestDispatcher("consultarDepartamento.jsp");
+			RequestDispatcher direcionador = request.getRequestDispatcher("consultarProcesso.jsp");
 			direcionador.forward(request,response);
 			}
-	}
+		else if (acao.equals("listarDocumento")){
+				//Analista
+				DocumentoDAO documentoDAO = new DocumentoDAO();
+					
+				request.getSession(true).setAttribute("listaDocumento", documentoDAO.listarDoc());
+								
+				RequestDispatcher direcionador = request.getRequestDispatcher("consProcAnalista.jsp");
+				direcionador.forward(request,response);
+				}
+		else if (acao.equals("consultaDocmto")){
+			//Analista
+			int numProtocolo = Integer.parseInt(request.getParameter("numProtocolo"));
+			
+			DocumentoDAO documentoDAO = new DocumentoDAO();
+		
+			Documento documento = documentoDAO.consultar(numProtocolo);							
+			request.setAttribute("docmto", documento);
+					
+			RequestDispatcher direcionador = request.getRequestDispatcher("processoConsult.jsp");
+			direcionador.forward(request,response);
+			
+		}
+		else if (acao.equals("consltDocumento")){
+			//Protocolista 
+			int numProtocolo = Integer.parseInt(request.getParameter("numProtocolo"));
+			
+			DocumentoDAO documentoDAO = new DocumentoDAO();
+		
+			Documento documento = documentoDAO.consultar(numProtocolo);							
+			request.setAttribute("doc", documento);
+					
+			RequestDispatcher direcionador = request.getRequestDispatcher("processoConsulta.jsp");
+			direcionador.forward(request,response);
+			
+		}
+		 else if (acao.equals("consultProc")){
+				//Analista e Protocolista
+				int numProtocolo = Integer.parseInt(request.getParameter("numProtocolo"));
+				
+				DocumentoDAO documentoDAO = new DocumentoDAO();
+				Documento documento = documentoDAO.consultar(numProtocolo);	
+				if(documento.getStatus()!= "Encerrado"){
+				request.setAttribute("prot", documento);
+				
+				RequestDispatcher direcionador = request.getRequestDispatcher("alterarDoc.jsp");
+				direcionador.forward(request,response);
+				} 
+				else if(documento.getStatus()== "Encerrado"){
+					
+					RequestDispatcher direcionador = request.getRequestDispatcher("erroAlterar.jsp");
+					direcionador.forward(request,response);
+					
+				}
+				
+		}
+		 else if (acao.equals("consultDetalh")){
+				//Analista
+			 	// vem do consProcAnalista e do outro
+				int numProtocolo = Integer.parseInt(request.getParameter("numProtocolo"));
+				
+				DocumentoDAO documentoDAO = new DocumentoDAO();
+				Documento documento = documentoDAO.consultar(numProtocolo);							
+				request.setAttribute("procDeta", documento);
+						
+				RequestDispatcher direcionador = request.getRequestDispatcher("detalharDoc.jsp");
+				direcionador.forward(request,response);
+				
+		}
+		 else if (acao.equals("consProvi")){
+				//Analista
+			 	// vem do detalharDoc
+				int numProtocolo = Integer.parseInt(request.getParameter("numProtocolo"));
+				
+				DocumentoDAO documentoDAO = new DocumentoDAO();
+				Documento documento = documentoDAO.consultar(numProtocolo);							
+				request.setAttribute("provideDeta", documento);
+						
+				RequestDispatcher direcionador = request.getRequestDispatcher("inserirProvidencia.jsp");
+				direcionador.forward(request,response);
+				
+		}
+		 else if (acao.equals("consultDetalhada")){
+				
+				int numProtocolo = Integer.parseInt(request.getParameter("numProtocolo"));
+				
+				DocumentoDAO documentoDAO = new DocumentoDAO();
+				Documento documento = documentoDAO.consultar(numProtocolo);							
+				request.setAttribute("procDetalha", documento);
+						
+				RequestDispatcher direcionador = request.getRequestDispatcher("detalhDocProt.jsp");
+				direcionador.forward(request,response);
+				
+		}
+		 else if (acao.equals("encerrarProcesso")){
+			
+			int numProtocolo = Integer.parseInt(request.getParameter("numProtocolo"));
+					
+			DocumentoDAO documentoDAO = new DocumentoDAO();
+			Documento documento= new Documento(numProtocolo);
+			Documento doc = documentoDAO.consultar(numProtocolo);	
+			if(doc.getStatus().trim().equals("Encerrado")){
+				
+				request.setAttribute("procEnce", documento);
+				
+				RequestDispatcher direcionador = request.getRequestDispatcher("mensErroEncer.jsp");
+				direcionador.forward(request,response);
+				
+			} 
+			else{
+				// colocar pra pegar a data atual
+				documentoDAO.encerrarProcesso(documento); 
+				
+				RequestDispatcher direcionador = request.getRequestDispatcher("mensEncer.jsp");
+				direcionador.forward(request,response);
+				
+			}
+			
+		}
+		if (acao.equals("emitirRelatorio")){
+		
+		DocumentoDAO documentoDAO = new DocumentoDAO();
+			
+		request.getSession(true).setAttribute("relatorioDoc", documentoDAO.listarDoc());
+						
+		RequestDispatcher direcionador = request.getRequestDispatcher("relatorioProcesso.jsp");
+		direcionador.forward(request,response);
+		}
+    }
 
 }

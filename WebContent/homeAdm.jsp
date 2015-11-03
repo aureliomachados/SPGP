@@ -7,15 +7,29 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>SPGP</title>
+<jsp:include page="partes/cabecalho.jsp"></jsp:include>
 </head>
 <body>
-<h1 align="center">Sistema de Protocolo e Gerenciamento de Processos</h1><br><br>
-<a>MENU</a>  
-<BR><BR>
-<ul class="nav nav-list">
-<li><a href="manterUsuario.jsp"> USUARIO</a></li>
-<li><a href="manterDepartamento.jsp"> DEPARTAMENTO </a></li>
-<li><a href="controleDocumento?acao=listar">DOCUMENTO  </a> <BR></li>
-</ul>
-</body>
-</html>
+<jsp:include page="partes/menuAdm.jsp"></jsp:include>
+		<div class="container">
+
+		<div class="jumbotron">
+			<h3 align="center">Sistema de Protocolo e Gerenciamento de
+				Processos</h3>
+		</div>
+		
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<footer>
+    <div class="container">
+        <hr>
+        <div class="row">
+            <div align="center" class="col-lg-12 footer-below">
+                <p>Criado por Bruno Martins e Carlos Guerra.
+                <br>                2015</p>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>		
+</html>		

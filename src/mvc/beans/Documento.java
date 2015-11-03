@@ -3,7 +3,7 @@ package mvc.beans;
 
 public class Documento {
 	
-	private int numProtolo; 
+	private int numProtocolo; 
 	private String nomeInteressado;
 	private String cpf_cnpj;
 	private int numDoc;
@@ -18,14 +18,12 @@ public class Documento {
 	
 	
 		
-	public Documento(int numProtolo, String status) {
-		this.numProtolo = numProtolo;
-		this.status = status;
-	}
+	
+	
 	
 	public Documento( String nomeInteressado, String cpf_cnpj,
 			int numDoc, String dataDoc, String assunto, String dataEntrada,
-			String tipo, String status, int analista) {
+			String tipo, int analista) {
 	
 		this.nomeInteressado = nomeInteressado;
 		this.cpf_cnpj = cpf_cnpj;
@@ -34,17 +32,16 @@ public class Documento {
 		this.assunto = assunto;
 		this.dataEntrada = dataEntrada;
 		this.tipo = tipo;
-		this.status = status;
 		this.analista = analista;
 		
 		
 	}
 	
-	public Documento(int numProtolo,String nomeInteressado, String cpf_cnpj,
+	public Documento(int numProtocolo,String nomeInteressado, String cpf_cnpj,
 			int numDoc, String dataDoc, String assunto, String dataEntrada,
 			String tipo, String status, int analista) {
 		
-		this.numProtolo = numProtolo;
+		this.numProtocolo = numProtocolo;
 		this.nomeInteressado = nomeInteressado;
 		this.cpf_cnpj = cpf_cnpj;
 		this.numDoc = numDoc;
@@ -58,12 +55,12 @@ public class Documento {
 		
 	}
 
-	public Documento(int numProtolo, String nomeInteressado, String cpf_cnpj,
+	public Documento(int numProtocolo, String nomeInteressado, String cpf_cnpj,
 			int numDoc, String dataDoc, String assunto, String dataEntrada,
 			String dataEncerramento, String tipo, String providencia,
 			String status, int analista) {
 	
-		this.numProtolo = numProtolo;
+		this.numProtocolo = numProtocolo;
 		this.nomeInteressado = nomeInteressado;
 		this.cpf_cnpj = cpf_cnpj;
 		this.numDoc = numDoc;
@@ -77,16 +74,40 @@ public class Documento {
 		this.analista = analista;
 		
 	}
+	public Documento(int numProtocolo) {
+		
+		this.numProtocolo = numProtocolo;
+	}
+	public Documento(int numProtocolo, String providencia) {
+		this.numProtocolo = numProtocolo;
+		this.providencia = providencia;
+	}
 	
 	public Documento() {
 		
 	}
-
-	public int getNumProtolo() {
-		return numProtolo;
+	// alterar
+	public Documento(int numProtocolo, String nomeInteressado,
+			String cpf_cnpj, int numDoc, String dataDoc, String assunto,
+			String tipo, String status, int analista) {
+		
+		this.numProtocolo = numProtocolo;
+		this.nomeInteressado = nomeInteressado;
+		this.cpf_cnpj = cpf_cnpj;
+		this.numDoc = numDoc;
+		this.dataDoc = dataDoc;
+		this.assunto = assunto;
+		this.tipo = tipo;
+		this.status = status;
+		this.analista = analista;
+		
 	}
-	public void setNumProtolo(int numProtolo) {
-		this.numProtolo = numProtolo;
+
+	public int getNumProtocolo() {
+		return numProtocolo;
+	}
+	public void setNumProtocolo(int numProtocolo) {
+		this.numProtocolo = numProtocolo;
 	}
 	public String getNomeInteressado() {
 		return nomeInteressado;
